@@ -1,0 +1,49 @@
+--TASK 3 SQL 
+
+🔹 Migration Scripts
+
+1. Export from MySQL
+
+# Export database from MySQL
+mysqldump -u root -p mydb > mydb.sql
+
+2. Convert schema for PostgreSQL
+
+LOAD DATABASE
+     FROM mysql://root:password@localhost/mydb
+     INTO postgresql://postgres:password@localhost/mydb
+
+ WITH include drop, create tables, create indexes, reset sequences
+
+ SET work_mem to '16MB', maintenance_work_mem to '512 MB';
+
+3. Import into PostgreSQL (if using dump)
+
+psql -U postgres -d mydb -f mydb.sql
+
+🔹 Example Table in PostgreSQL
+
+SELECT * FROM customers;
+
+ customer_id |    name    |        email
+-------------+------------+-----------------------
+           1 | RAM   | Ram@example.com
+           2 | AARAV | aarav@example.com
+           3 | TIRA | tira@example.com
+
+🔹 Summary Report
+
+ 1. Exported MySQL database mydb using mysqldump.
+
+2.  Used pgloader to handle schema conversion and data type adjustments (e.g., TINYINT → BOOLEAN, AUTO_INCREMENT → SERIAL).
+
+3.  Imported data into PostgreSQL database mydb.
+
+4.  Verified schema compatibility (tables, primary keys, foreign keys).
+
+5.  Performed row count validation:
+
+MySQL customers: 3 rows
+
+PostgreSQL customers: 3 rows 
+
